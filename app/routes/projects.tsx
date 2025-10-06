@@ -8,7 +8,8 @@ export const meta: Route.MetaFunction = () => [
   {
     name: 'description',
     content: "Explore the portfolio of Ikhwan Satrio - Frontend Developer. Showcasing web applications, mobile apps, and open-source projects built with modern technologies like React, and TypeScript."
-  }
+  },
+  { name: "keywords", content: ["portofolio", "portofolio ikhwan", "portofolio ikhwan satrio", "ikhwan,ikhwan satrio", "young dev portofolio"].join(',') }
 ]
 
 export default function Projects() {

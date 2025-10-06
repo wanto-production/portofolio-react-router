@@ -13,7 +13,8 @@ export const meta: Route.MetaFunction = () => [
   {
     name: 'description',
     content: "Get in touch with Ikhwan Satrio - Frontend Developer. Contact me for web development projects, collaborations, or just to say hello. Available for freelance work and exciting opportunities.",
-  }
+  },
+  { name: "keywords", content: ["portofolio", "portofolio ikhwan", "portofolio ikhwan satrio", "ikhwan,ikhwan satrio", "young dev portofolio"].join(',') }
 ]
 
 const contactSchema = z.object({

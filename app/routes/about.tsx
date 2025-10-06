@@ -13,6 +13,7 @@ export const meta: Route.MetaFunction = () => [
     name: "description",
     content: 'Learn more about Ikhwan Satrio - Young passionate programmer specializing in modern web development with Svelte, and React',
   },
+  { name: "keywords", content: ["portofolio", "portofolio ikhwan", "portofolio ikhwan satrio", "ikhwan,ikhwan satrio", "young dev portofolio"].join(',') }
 ]
 
 export default function About() {

@@ -9,11 +9,11 @@ import {
   useFetcher
 } from "react-router";
 import { useTheme } from "react-router-theme"
-import type { Route } from "./+types/root";
 import "./app.css";
 import { ThemeContext } from "~/lib/theme-context";
 import { Header } from "~/components/header";
 import Footer from "~/components/footer";
+import type { Route } from "./+types/root";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -32,9 +32,7 @@ export const links: Route.LinksFunction = () => [
   }
 ];
 
-export const meta: Route.MetaFunction = () => [
-  { name: "keywords", content: ["portofolio", "portofolio ikhwan", "portofolio ikhwan satrio", "ikhwan,ikhwan satrio", "young dev portofolio"].join(',') }
-]
+
 
 export { action, loader } from "react-router-theme"
 
