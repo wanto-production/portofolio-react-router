@@ -26,12 +26,7 @@ const contactSchema = z.object({
 
 export async function action({ request }: Route.ActionArgs) {
   try {
-    const formData = await request.formData()
-
-    const name = formData.get('name') as string
-    const email = formData.get('email') as string
-    const subject = formData.get('subject') as string
-    const message = formData.get('message') as string
+    const { name, email, subject, message } = await request.json() as z.infer<typeof contactSchema>
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -65,8 +60,13 @@ export default function Contact() {
       message: '',
     },
     validators: {
-      onChange: contactSchema
+      onChange: contactSchema,
+      onSubmit: contactSchema
     },
+    onSubmit: async ({ value }) => {
+      await fetcher.submit(value, { method: "post", encType: "application/json" })
+      form.reset()
+    }
   })
 
 
@@ -189,7 +189,11 @@ export default function Contact() {
                 </p>
               </div>
 
-              <fetcher.Form method="post" className="space-y-4 sm:space-y-6">
+              <form onSubmit={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                form.handleSubmit()
+              }} className="space-y-4 sm:space-y-6">
                 {/* Name & Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <form.Field name="name">
@@ -317,7 +321,7 @@ export default function Contact() {
                     {submitResult.error}
                   </div>
                 )}
-              </fetcher.Form>
+              </form>
             </div>
 
             {/* Contact Methods */}
