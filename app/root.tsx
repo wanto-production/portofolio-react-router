@@ -5,7 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
+  useRouteLoaderData,
   useFetcher
 } from "react-router";
 import { useTheme } from "react-router-theme"
@@ -32,14 +32,16 @@ export const links: Route.LinksFunction = () => [
   }
 ];
 
-
-
 export { action, loader } from "react-router-theme"
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const loaderData = useLoaderData() as { theme: string };
+  const loaderData = useRouteLoaderData("root") as { theme: string } | undefined;
   const fetcher = useFetcher();
-  const [theme, setTheme] = useTheme(loaderData, fetcher, "dark");
+
+  // Berikan default value jika loaderData belum tersedia (SSR)
+  const [theme, setTheme] = loaderData
+    ? useTheme(loaderData, fetcher, "dark")
+    : ["dark", () => { }];
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
@@ -50,7 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Meta />
           <Links />
         </head>
-        <body>
+        <body className="bg-background">
           <Header />
           {children}
           <Footer />
